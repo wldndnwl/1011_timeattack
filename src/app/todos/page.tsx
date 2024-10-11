@@ -33,9 +33,14 @@ const page = () => {
   const completeTodo = async (id: number) => {
     try {
       // ... 펼쳐서....... find 돌려서... 아닌가
-      const update = { ...todos.find((todo) => todo.id === id), isDone: true };
+      const update = {
+        ...todos.find((todo: { id: number }) => todo.id === id),
+        isDone: true,
+      };
       await axios.patch(`http://localhost:4000/todos/${id}`, update);
-      setTodos(todos.map((todo) => (todo.id === id ? update : todo)));
+      setTodos(
+        todos.map((todo: { id: number }) => (todo.id === id ? update : todo))
+      );
     } catch (error) {
       console.error("complete 오류 =>", error);
     }
